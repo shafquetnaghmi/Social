@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <h1>Login </h1>
+  <form href="" method="post">
+      {% csrf_token %}
+     <P>{{form.username}}</P>
+     <P>{{form.password}}</P>
+     <input type="submit">
+  </form>
+  <a href="{% url 'password_reset' %}">Forgot Password</a>
+  
+</body>
+</html>

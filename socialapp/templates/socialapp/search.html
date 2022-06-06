@@ -1,0 +1,24 @@
+{% extends 'socialapp/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'socialapp/search.css' %}">
+<div class="search-1">
+    {% for profile in profiles %}
+    <!--{{profile.user.username}}-->
+    <ul>
+   <img id="img" src="{{profile.photo.url}}" height="50px" width="50px">
+    <a  id="username" href="/profile/{{profile.user.username}}">{{profile.user.username}}</a>
+
+</ul>
+    <!--<a style="color:blue" href="/search/?username={{profile.user.username}}">Follow</a>-->
+    <!--<P>profile_id:{{profile.id}}</P>
+    <P>profile_user_id:{{profile.user.id}}</P>
+    <P>profile_username:{{profile.user.username}}</P>
+    <P>request_user_id:{{request.user.id}}</P>
+    <P>request_user:{{request.user}}</P>
+    <P>Follower:{{follower_count}}</P>
+    <P>Following:{{following_count}}</P>
+    <P>profile:{{profile.followers}}</P>-->
+    {% endfor %}
+</div>
+{% endblock %}

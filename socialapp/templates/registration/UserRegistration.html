@@ -1,0 +1,28 @@
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'socialapp/UserRegistration.css' %}">
+<div class="a1">
+    <h1>Create an account</h1>
+    <div class="a2">
+        <form method="POST">
+            {% csrf_token %}
+            <!--{{form.as_p}}-->
+
+            <p>{{form.username.label_tag}}
+                {{form.username}}</p>
+            <p>{{form.email.label_tag}}
+                {{form.email}}</p>
+            <p>{{form.first_name.label_tag}}
+                {{form.first_name}}</p>
+            <p> {{form.last_name.label_tag}}
+                {{form.last_name}}</p>
+            <p> {{form.password1.label_tag}}
+                {{form.password1}}</p>
+            <p> {{form.password2.label_tag}}
+                {{form.password2}}</p>
+            <input type="submit" value="Register">
+
+        </form>
+    </div>
+</div>
+{% endblock %}

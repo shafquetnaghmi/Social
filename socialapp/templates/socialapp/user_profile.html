@@ -1,0 +1,51 @@
+{% extends 'socialapp/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'socialapp/user_profile.css' %}">
+<script src="https://kit.fontawesome.com/e5e2e864c0.js" crossorigin="anonymous"></script>
+<div class="nav">
+    <h3 id="a2">SocialNetwork</h3>
+    <a id="a3" href="{% url 'images' %}"><i class="fa-solid fa-plus"></i></a>
+</div>
+<hr>
+<div class="profile">
+    <section class="a1">
+        <div class="img1"><img class="img2" src="{{user.profile.photo.url}}" height="75px" width="75px"></div>
+        <div>
+            <h1 class="username">{{user.username}}</h1>
+        </div>
+        <a class="edit-profile" href="{% url 'edit' %}">Edit Profile</a>
+        <a href="{% url 'password_change' %}">
+            <P id="settings"><i class="fa-solid fa-gear"></i></P>
+        </a>
+        <!--username-->
+        <!--<P>contact:{{user.email}}</P>-->
+    </section>
+    <P class="name">{{user.first_name}} {{user.last_name}}</P>
+
+    <button><a id="follow" href="/follow/{{profile.id}} /{{profile.user.username}}">Follow</a></button>
+    <button><a id="follow" href="/unfollow/{{profile.id}} /{{profile.user.username}}">Unfollow</a></button>
+    <P>Follower:{{follower_count}}</P>
+    <P>Following:{{following_count}}</P>
+</div>
+<hr width="900px" noshade>
+<div class="POSTS">
+    <i class="fa-solid fa-camera-retro">POSTS</i>
+</div>
+
+<div class="uploaded-photos">
+    {% for im in img %}
+    <img class="uploaded-photo" src="{{im.image.url}}" height="250px" width="225px">
+    <!--{{im.description}}-->
+    {% endfor %}
+</div>
+<!--<P>profile_id:{{profile.id}}</P>
+    <P>profile_user_id:{{profile.user.id}}</P>
+    <P>profile_username:{{profile.user.username}}</P>
+    <P>request_user_id:{{request.user.id}}</P>
+    <P>request_user:{{request.user}}</P>
+    <P>Follower:{{follower_count}}</P>
+    <P>Following:{{following_count}}</P>
+    <P>profile:{{profile.followers}}</P>-->
+
+{% endblock %}

@@ -1,0 +1,14 @@
+
+.messages{
+    background-color: rgb(59, 59, 59);
+    color:white;
+    height:60px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+
+}
+.message-tag{
+    display:flex;
+    align-items: cente;
+}

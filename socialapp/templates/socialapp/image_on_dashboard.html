@@ -1,0 +1,7 @@
+{% block content %}
+{% for im in img %}
+<img  class="profile-photo" src="{{im.image.url}}" height="50px" width="50px">
+{{im.description}}
+
+{% endfor %}
+{% endblock %}

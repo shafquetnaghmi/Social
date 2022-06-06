@@ -1,0 +1,26 @@
+body{
+    background-color:lightgray;
+}
+.search-1{
+    
+    background-color: white;
+    
+    margin-left:30%;
+    margin-right:30%;
+    padding-top:1em;
+    padding-bottom:1em;
+    height:500px;
+    
+    
+}
+#username{
+    margin-left:2em;
+    margin-top:1em;
+    
+}
+#img{
+    border-radius:50%;
+}
+ul{
+    display:flex;
+}

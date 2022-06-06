@@ -1,0 +1,45 @@
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'socialapp/dashboard.css' %}">
+
+<div class="nav">
+    <ul class="navbar">
+        <li>
+            <h1 id="logo">SocialNetwork</h1>
+        </li>
+        <!--adding search bar -->
+        <li>
+            <form method="GET" action="{% url 'search' %}" class="search">
+                <input type="text" placeholder="search" name="username" />
+                <!--<input type="text" placeholder="search" >-->
+                <input type="submit" value="search">
+            </form>
+        </li>
+        <!-- <a href="{% url 'profile' user.id %}" >Profile</a> -->
+
+        <!--<li><img class="profile-photo" src="{{user.profile.photo.url}}" height="50px" width="50px"></li>
+        <li><a id="username" href="{% url 'profile' request.user.username %}">
+                <h3 id="username">{{request.user.username}}</h3>
+            </a>
+        </li>-->
+        <li><a  id="username" href="{% url 'profile' request.user.username %}">
+            <img class="profile-photo" src="{{user.profile.photo.url}}" height="50px" width="50px">
+        </a>
+    </li>
+
+        <!--<P id="username">{{request.user.username}}</P>-->
+
+    </ul>
+</div>
+<hr color="black">
+<!--user_id={{user.pk}},{{user.id}}
+profile_id={{user.profile.pk}}<hr>-->
+
+
+
+{% for post in posts %}
+<img src="{{post.image.url}}">
+<a id="users_like" href="/dashboard/">like</a>
+{{post.id}}
+{% endfor %}
+{% endblock %}

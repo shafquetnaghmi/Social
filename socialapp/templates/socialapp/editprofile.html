@@ -1,0 +1,22 @@
+{% extends 'socialapp/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'socialapp/editprofile.css' %}">
+<div class="edit">
+    <h1>Edit Profile</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <P>{{user_form.first_name.label_tag}}</P>
+        <P>{{user_form.first_name}}</P>
+        <P>{{user_form.last_name.label_tag}}</P>
+        <P>{{user_form.last_name}}</P>
+        <P>{{user_form.email.label_tag}}</P>
+        <P>{{user_form.email}}</P>
+        <P>{{profile_form.date_of_birth.label_tag}}</P>
+        <P>{{profile_form.date_of_birth}}</P>
+        <P>{{profile_form.photo.label_tag}}</P>
+        <P>{{profile_form.photo}}</P>
+        <input type="submit" value="Save edit">
+    </form>
+</div>
+{% endblock %}

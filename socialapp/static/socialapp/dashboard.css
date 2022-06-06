@@ -1,0 +1,19 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+li{
+    list-style-type: none;
+}
+.profile-photo{
+    border:2px solid rgb(114, 30, 209);
+    border-radius: 50%;
+}
+

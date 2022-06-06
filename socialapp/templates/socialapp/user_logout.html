@@ -1,0 +1,4 @@
+{% if user.is_authenticated %}
+<P>you have been logged out </P>
+{% endif %}
+<a href="{% url 'login' %}">login</a>

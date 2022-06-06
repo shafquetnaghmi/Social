@@ -1,0 +1,14 @@
+{% extends 'socialapp/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'socialapp/image.css' %}">
+<div class="a1">
+    <h2 >Create new post</h2>
+    <form id="frm" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <P>{{form.image}}</P>
+        <P>{{form.description}}</P>
+        <input class="btn-1" type="submit" value="Share">
+    </form>
+</div>
+{% endblock %}
