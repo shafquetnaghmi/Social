@@ -1,3 +1,4 @@
+{% extends 'socialapp/main.html' %}
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'socialapp/dashboard.css' %}">
@@ -22,24 +23,54 @@
                 <h3 id="username">{{request.user.username}}</h3>
             </a>
         </li>-->
-        <li><a  id="username" href="{% url 'profile' request.user.username %}">
-            <img class="profile-photo" src="{{user.profile.photo.url}}" height="50px" width="50px">
-        </a>
-    </li>
-
-        <!--<P id="username">{{request.user.username}}</P>-->
-
+        <button id="add_post"><a id="a3" href="{% url 'images' %}"><b>Add Post</b></a></button>
+        <li id="combined-1">
+            
+            <a id="username" href="{% url 'profile' request.user.username %}">
+                <img class="profile-photo" src="{{user.profile.photo.url}}" height="45px" width="45px">
+            </a>
+        </li>
+         <!--<P id="username">{{request.user.username}}</P>-->
     </ul>
 </div>
-<hr color="black">
+<hr color="black" vw="100%" >
 <!--user_id={{user.pk}},{{user.id}}
 profile_id={{user.profile.pk}}<hr>-->
 
 
+<div class="feed">
 
-{% for post in posts %}
-<img src="{{post.image.url}}">
-<a id="users_like" href="/dashboard/">like</a>
-{{post.id}}
-{% endfor %}
+    <div class="post">
+        {% for post in posts %}
+        <div class="alpha">
+            <div class="header-1">
+                <img class="img-1" src="{{post.user.profile.photo.url}}" height="50px" width="50px">
+                <a class="header-2" href="{% url 'profile' post.user.username %}"><b>{{post.user}}</b></a>
+            </div>
+            <P><img class="post.img" src="{{post.image.url}}" height="500px" width="400px"></P>
+            <div id="description">
+                <p><b>{{post.user.username}}</b> {{post.description}}</p>
+            </div>
+            <div class="likes-1">
+                <a id="likes" href="/likes/{{post.id}}/"><i class="fa-regular fa-thumbs-up"></i></a>
+                {{post.users_like.count}}
+
+                <!--{{post.id}}-->
+                <!--comments-->
+                <a href="/comments/{{post.id}}/"><i class="fa-solid fa-comment"></i></a>
+            </div>
+            {{post.created}}
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="suggestion">
+        <P>Suggestions For You </P>
+        {% for suggestion in profile %}
+        <P class="suggestion-1"><a href="/profile/{{suggestion.user.username}}"><img id="suggestion" src="{{suggestion.photo.url}}"
+                    height="30px" width="30px"> <b>{{suggestion.user.username}}</b></a></P>
+        {% endfor %}
+    </div>
+</div>
+
 {% endblock %}

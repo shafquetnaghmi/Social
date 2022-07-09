@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .forms import LoginForm,UserRegistrationForm,UserEditForm,ProfileEditForm,ImageForm
+from django.http import HttpResponse,HttpResponseRedirect
+from .forms import LoginForm,UserRegistrationForm,UserEditForm,ProfileEditForm,ImageForm,commentform ,instantmessageform
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect 
-from .models import Profile,Image
+from .models import Profile,Image,instantmessage,Comments
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
@@ -34,8 +34,10 @@ def user_logout(request):
      #messages.success(request,'You have been logged out ')
 @login_required()
 def dashboard(request):
-    posts=Image.objects.filter(user__profile__followers=request.user.id)
-    context={'posts':posts}
+    posts=Image.objects.filter(user__profile__followers=request.user.id).order_by('-created')
+    profile=Profile.objects.all()
+    
+    context={'posts':posts,'profile':profile,}
     return render(request,'socialapp/dashboard.html',context)
 
 def UserRegistration(request):
@@ -69,7 +71,7 @@ def user_profile(request,username):
     following_count=profile.following.count()
     #photos uploaded 
     user=get_object_or_404(User,username=username)
-    img=user.images_created.all()
+    img=user.images_created.all().order_by('-created')
     
 
     context={'profile':profile,'user':user,'img':img,'follower_count':follower_count,'following_count':following_count}
@@ -110,7 +112,8 @@ def imageview(request):
             new_form=form.save(commit=False)
             new_form.user=request.user
             new_form.save()
-            return HttpResponse('form submitted successfully')
+            #return HttpResponse('form submitted successfully')
+            return redirect(f'/profile/{request.user.username}')
         else:
             return HttpResponse('invalid form')
     context={'form':form}
@@ -148,7 +151,68 @@ def unfollow(request,id,username):
     login_profile.following.remove(profile.user)
     return redirect(f'/profile/{username}')
 
-def users_like(request,id,username):
-    image=get_object_or_404(Image,id=4)
-    image.users_like.add(request.user)
-    return redirect('/dashboard/')
+def users_like(request,id):
+    image=get_object_or_404(Image,id=id)
+    
+    if request.user in image.users_like.all():
+        image.users_like.remove(request.user)
+    else:
+        image.users_like.add(request.user)
+    #return redirect('/dashboard/')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
+def commentview(request,id):
+    post=get_object_or_404(Image,id=id)
+    comments=post.comments.all().order_by('-created')
+    
+    form=commentform()
+    new_comment=None
+    if request.method=='POST':
+      form=commentform(request.POST)
+      if form.is_valid():
+         new_comment=form.save(commit=False)
+         new_comment.image=post
+         new_comment.user=request.user
+         new_comment.save()
+         
+         #return redirect('blogapp/blogdata/')
+         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    else:
+        form=commentform()
+    
+    context={'comments':comments,'post':post,'form':form,'new_comment':new_comment,}
+    return render(request,'socialapp/comment.html',context)
+
+def delete_comment(request,post_id,comment_id):
+    comment=get_object_or_404(Comments,id=comment_id)
+    if request.method=='POST':
+        comment.delete()
+        return redirect(f'/comments/{post_id}/')
+        #return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        #return HttpResponse('Comment deleted')
+    context={'comment':comment}
+    return render(request,'socialapp/delete_comment.html',context)
+    #return render(request,'socialapp/comment.html',context)
+
+
+def message(request,id):
+    message=instantmessage.objects.filter(sender_id=id ).order_by('-created')
+    message_receiver=instantmessage.objects.filter(receiver_id=id).order_by('-created')
+    #messages=message.all()
+    #messages=message.sender.all()
+    form=instantmessageform()
+    new_message=None
+    if request.method=='POST':
+        form=instantmessageform(request.POST)
+        if form.is_valid():
+            new_message=form.save(commit=False)
+            new_message.sender=request.user
+            #new_message.receiver=User.objects.get(id=request.POST['receiver_id'])
+            new_message.save()
+            return redirect(f'/messages/{request.user.id}/')
+    else:
+        form=instantmessageform()
+    context={'form':form,'new_message':new_message,'message':message,'message_receiver':message_receiver}
+    return render(request,'socialapp/messages.html',context)
+
+    

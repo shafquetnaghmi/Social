@@ -1,0 +1,18 @@
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {{form.receiver}}
+    {{form.message}}
+
+    <input type="submit" value="send" >
+</form>
+
+{% for msg in message %}
+<P>{{msg.sender}} {{msg}} {{msg.receiver}}   {{msg.created}}</P>
+
+{% endfor %}
+{% for msg in message_receiver %}
+<P>{{msg.sender}} {{msg}} {{msg.receiver}}   {{msg.created}}</P>
+{% endfor %}
+
+{% endblock%}

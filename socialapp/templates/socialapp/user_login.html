@@ -1,20 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-   <h1>Login </h1>
-  <form href="" method="post">
-      {% csrf_token %}
-     <P>{{form.username}}</P>
-     <P>{{form.password}}</P>
-     <input type="submit">
-  </form>
-  <a href="{% url 'password_reset' %}">Forgot Password</a>
-  
-</body>
-</html>
+{% extends 'socialapp/main.html' %}
+{% load static %}
+{% block content %}
+    <link rel="stylesheet" href="{% static 'socialapp/user_login.css' %}">
+
+    <div class="login">
+        <br><h1 >Sign in </h1><br>
+        <form href="" method="post">
+            {% csrf_token %}
+            <P>{{form.username}}</P>
+            <P>{{form.password}}</P>
+            <input type="submit" value="login" class="btn-1">
+        </form>
+        <a href="{% url 'password_reset' %}">Forgot Password</a><br><br>
+        <P id="signup"><b>Don't have an account?</b><a href="{% url 'create_account' %}"><b>Signup</b></a></P><br><br>
+        
+    </div>
+
+
+    
+
+{% endblock %}

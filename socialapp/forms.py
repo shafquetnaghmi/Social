@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.forms import ModelForm,TextInput,EmailInput,PasswordInput,Textarea,FileInput
-from .models import Profile,Image
+from .models import Profile,Image,Comments,instantmessage
 
 
 class LoginForm(forms.Form):
@@ -42,3 +42,14 @@ class ImageForm(forms.ModelForm):
         
             'description':TextInput(attrs={'placeholder':'Write a caption'}),
         }
+class commentform(forms.ModelForm):
+    class Meta:
+        model=Comments
+        fields='__all__'
+        widgets={
+         'comment':TextInput(attrs={'placeholder':'add a comment'})
+        }
+class instantmessageform(forms.ModelForm):
+    class Meta:
+        model=instantmessage
+        fields='__all__'

@@ -1,0 +1,36 @@
+{% extends 'socialapp/main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'socialapp/comment.css' %}">
+<div class="main">
+    <div class="post">
+        <img src="{{post.image.url}}" height="400px" width="300px">
+    </div>
+    <div class="comments">
+        {% if request.user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+
+            {{form.comment}}
+            <input class="comment-b" type="submit" value="comment">
+            {% else %}
+            <P>Please <a href="{% url 'login' %}">login</a> to add comment </P>
+
+            {% endif %}
+        </form>
+        <h3>comments..</h3>
+
+        {% for comm in comments %}
+
+        <a class="comment-user" href="{% url 'profile' comm.user.username %}">{{comm.user}}</a>
+        {{comm.comment}}
+        {% if request.user.id == comm.user.id %}
+        <a class="delete" href="/delete_comment/{{post.id}}/{{comm.id}}/">Delete</a>
+        {% endif %}
+        <br><br>
+        {% endfor %}
+        <!--{{post}} {{comm.id}}-->
+
+    </div>
+</div>
+{% endblock %}

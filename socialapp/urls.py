@@ -26,6 +26,9 @@ urlpatterns=[
     path('search/',views.search,name='search'),
     path('follow/<str:id>/<str:username>/',views.follow,name='follow'),
     path('unfollow/<str:id>/<str:username>/',views.unfollow,name='unfollow'),
-    path('users_like/<str:id>/<str:username>/',views.users_like,name='users_like'),
+    path('likes/<str:id>/',views.users_like,name='users_like'),
+    path('comments/<str:id>/',views.commentview,name="comment"),
+    path('messages/<str:id>/',views.message,name="message"),
+    path('delete_comment/<str:post_id>/<str:comment_id>/',views.delete_comment,name="delete_comment"),
 
     ]

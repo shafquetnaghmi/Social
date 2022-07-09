@@ -1,3 +1,8 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
 .img1{
     
     margin-left: 20%;
@@ -53,6 +58,7 @@
 }
 .nav{
     display:flex;
+    margin-bottom:0;
 }
 #a2{
     margin-left:20%;
@@ -60,8 +66,8 @@
 }
 #a3{
     margin-left:40%;
-    border:solid .3em ;
-    margin-bottom: 2em;
+   
+    
     
 }
 #follow{

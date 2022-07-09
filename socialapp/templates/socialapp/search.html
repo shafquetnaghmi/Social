@@ -3,10 +3,11 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'socialapp/search.css' %}">
 <div class="search-1">
+    <P>Matching Queries...</P>
     {% for profile in profiles %}
     <!--{{profile.user.username}}-->
     <ul>
-   <img id="img" src="{{profile.photo.url}}" height="50px" width="50px">
+    <img id="img" src="{{profile.photo.url}}" height="50px" width="50px">
     <a  id="username" href="/profile/{{profile.user.username}}">{{profile.user.username}}</a>
 
 </ul>
